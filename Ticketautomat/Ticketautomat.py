@@ -1,54 +1,13 @@
-# Fahrkartenautomat
-# Programmiere einen Fahrkartenautomaten der wie folgt funktioniert:
-# Der Automat liest eine json Datei ein in festgelegt wird welche Tickets es gibt und was sie kosten, so wie welche Münzen/Geldscheine der Automat akzeptiert. Die Datei sieht so aus und ist auch an die Aufgabe angehängt:
-
-
-{
-    "tickets": 
-        [
-            { 
-                "name": "Einzelfahrkarte", 
-                "price": 4 
-                
-            }, 
-            { 
-                "name": "Tageskarte (1 Person)", 
-                "price": 15 
-                
-            }, 
-            { 
-                "name": "Tageskarte (Gruppe)", 
-                "price": 25 
-                
-            }, 
-            { 
-                "name": "Monatskarte", 
-                "price": 99 
-                
-            }
-        ], 
-    "accepted_cash": [1, 2, 5, 10, 20, 50] 
-}
+# In dieser Aufgabe soll ein Programm erstellt werden, das die Funktionalität eines Fahrkartenautomaten simuliert. 
+# Dazu wird eine JSON-Datei eingelesen, die Informationen über verfügbare Tickets und deren Preise enthält. 
+# Die Benutzer können ein Ticket auswählen, den Preis und die akzeptierten Münzen/Geldscheine anzeigen lassen und dann Münzen/Geldscheine einwerfen.
 
 import json
 
-# Zuerst werden dem Benutzer die Tickets angezeigt zusammen mit einer Nummer, über die er dann die Fahrkarte auswählen kann.
-# Der Benutzer kann dann eine Fahrkarte auswählen.
-# Es wird überprüft, ob der Benutzer eine gültige Nummer eingegeben hat, wenn nicht, wird das Programm beendet. (Ein Programm beendest du mit der Funktion "exit()").
-# Bei einer gültigen Nummer wird dem Benutzer sowohl der Preis der Fahrkarte angezeigt, wie auch die Geldscheine/Münzen, die der Automat annimmt.
-# Nun kann der Benutzer nach und nach Münzen/Geldscheine in den Automaten einwerfen.
-# Jedes mal wenn der Benutzer etwas eingeworfen hat, wird überprüft, ob die Münze/der Geldschein überhaupt angenommen werden kann. Außerdem wird überprüft, ob der Benutzer schon genügend Geld eingeworfen hat.
-# Wenn die Münze/der Geldschein gültig ist, wird der fehlende Betrag berechnet und dem Benutzer ausgegeben.
-# Sobald genug Geld eingeworfen wurde, bedankt sich der Automat und gibt an wie viel Rückgeld der Benutzer erhalten wird so fern er zu viel bezahlt hat.
-#
-# Lade die Datei tickets.json in die Cloud9 IDE über "File" -> "Upload Local Files" hoch, oder kopiere den Inhalt manuell in eine neue Datei. Achte darauf, dass die Datei sich im Hauptverzeichnis befinden muss, damit dein Programm sie findet.
-# Implementiere anschließend den Automaten.
+with open("tickets.json", "r") as fh:
+    ticket_data = json.load(fh)
 
-
-with open("tickets-211215-172151.json", "r") as fh:
-    x = json.load(fh)
-
-# Erdtellt eine Liste der Fahrkarten (für Output ohne eckige Klammen)
+# Erstellt eine Liste der Fahrkarten (für Output ohne eckige Klammen)
 fahrkarten = []
 for count, ticket in enumerate(x["tickets"]):
     available = str(count +1), ticket["name"]
@@ -59,10 +18,7 @@ print(fahrkarten)
 print(f'Herzlich willkommen bei Ihrer Bahn.\nBitte wählen Sie eines der verfügbaren Tickets:\n\n{", ".join(fahrkarten)}.')
 print()
 
-cash = ", ".join(str(n) for n in x["accepted_cash"])
-
-#print(cash)
-#print(fahrkarten)
+cash = ", ".join(str(n) for n in ticket_data["accepted_cash"])
 
 # Beendet das Skript, sollte keine gültige Nummer eingegeben worden sein
 choice = int(input())
@@ -82,7 +38,7 @@ print(f'Es werden folgende Barmittel (€) in Münzen und Noten akzeptiert: {cas
 print()
 
 
-accepted_cash = x["accepted_cash"]
+accepted_cash = ticket_data["accepted_cash"]
 
 # Überprüft, ob Einzahlung akzeptiert wird und errechnet fehlendes Geld und Rückgeld
 total_bezahlt = 0

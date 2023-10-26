@@ -1,10 +1,36 @@
+# Diese Aufgabenreihe konzentriert sich auf das Erstellen von Python-Klassen, um einen virtuellen Supermarkt zu modellieren. Hier ist eine ausführliche Beschreibung:
+
+# Aufgabe 1: Supermarkt-Klasse
+
+#     In dieser Aufgabe geht es darum, eine Python-Klasse mit dem Namen "Supermarket" zu erstellen. Diese Klasse repräsentiert einen Supermarkt und hat Attribute wie den Namen des Supermarkts, die Straße und die Stadt, in der er sich befindet. Zusätzlich sollte die Klasse leere Listen für Mitarbeiter und Produkte haben.
+
+# Aufgabe 2: Mitarbeiter-Klasse
+
+#     In dieser Aufgabe erstellen Sie eine weitere Python-Klasse namens "Employee", um die Mitarbeiter des Supermarkts zu modellieren. Die Mitarbeiter haben Eigenschaften wie ihren Namen, ihr Alter, ihre Personalnummer und ihren Job. Sie sollen in der Lage sein, sich höflich den Kunden des Supermarkts vorzustellen und ihren Geburtstag zu feiern. Dafür müssen die Methoden "greet_customer" und "celebrate_birthday" implementiert werden, um Kunden zu begrüßen und den Geburtstag des Mitarbeiters zu feiern.
+
+# Aufgabe 3: Produkt-Klasse
+
+#     Diese Aufgabe befasst sich mit der Erstellung der "Product"-Klasse, um die Produkte im Supermarkt darzustellen. Produkte haben Eigenschaften wie den Namen, die Produkt-ID, die Kategorie und den Preis. Jedes Produkt gehört zu einer der Kategorien: "food", "drinks" oder "others". Bei der Erstellung eines Produkts soll überprüft werden, ob die Kategorie korrekt gesetzt ist, andernfalls wird die Kategorie auf "others" gesetzt. Die Klasse sollte auch eine Methode "apply_discount" enthalten, um Rabatte auf den Produktpreis anzuwenden.
+
+# Aufgabe 4: Mitarbeiter und Produkte einlesen
+
+#     In dieser Aufgabe geht es darum, Mitarbeiter- und Produktinformationen aus CSV-Dateien zu importieren und sie in Listen zu speichern. Die Informationen stammen aus zwei Dateien: "employees.csv" und "products.csv".
+
+# Aufgabe 5: Supermarkt mit Mitarbeitern und Produkten erstellen
+
+#     Hier erstellen Sie einen konkreten Supermarkt, "my_supermarket", mit festgelegten Werten für den Namen, die Straße und die Stadt. Sie erstellen Mitarbeiter- und Produktobjekte aus den zuvor eingelesenen Daten und fügen sie dem Supermarkt hinzu.
+
+# Aufgabe 6: Supermarkt-Management
+
+#     Diese Aufgabe erfordert eine Analyse des erstellten Supermarkts. Sie müssen Fragen wie die Anzahl der Mitarbeiter, das teuerste Produkt, die durchschnittlichen Produktkosten und die Anzahl der Produkte in jeder Kategorie beantworten. Es wird empfohlen zu überlegen, ob es sinnvoll ist, zukünftig weitere Methoden in den Klassen zu implementieren, um diese Informationen leichter abzurufen.
+
+# Insgesamt handelt es sich um eine Übung zur Erstellung von Python-Klassen und zur Modellierung eines Supermarkts und seiner Bestandteile. Sie werden auch mit CSV-Dateien arbeiten, um Daten zu importieren und den Supermarkt zu verwalten.
+
 from datetime import time
 import time
 
-# Aufgabe 1: Die Supermarkt Klasse
-#
-#     Erstelle zunächst eine Klasse Supermarket, mit den Attributen name (str), street (str), city (str).
-#     Jeder Supermarkt soll auch die Attribute employees und products haben, die zunächst als leere Liste implementiert werden sollen.
+
+# Aufgabe 1: Erstellen der Supermarktklasse
     
 class Supermarket:
     """Class to build a supermarket"""
@@ -15,16 +41,9 @@ class Supermarket:
         self.employees = []
         self.products = []
         
-# Aufgabe 2: Die Mitarbeiter Klasse
 
-#     Erstelle eine Klasse Employee mit den Attributen name (str), age (int), pers_id (int), job (str).
+# Aufgabe 2: Erstellen der Mitarbeiterklasse
 
-
-#    Jeder Mitarbeiter soll sich höflich den Kunden deines Supermarket vorstellen und einmal im Jahr seinen Geburtstag feiern können.
-#    Implementiere daher 2 Methoden, greet_customer und celebrate_birthday, die folgende Funktionen haben:
-#        greet_customer: Gibt folgenden Text aus: "Guten Tag. Mein Name ist __ und ich bin ___ in diesem Supermarkt. Es ist momentan __ Uhr - wie kann ich Ihnen helfen?"
-#        celebrate_birthday: Inkrementiert das Alter des Mitarbeiters und gibt den Text "Juhu! Heute werde ich _ Jahre!" aus.
-        
 class Employee:
     """Class to describe employees"""
     def __init__(self, name, age, pers_id, job):
@@ -45,21 +64,7 @@ class Employee:
         
 
 
-
-# Aufgabe 3: Die Produkt Klasse
-# 
-#     Erstelle eine Klasse Product mit den Attributen name (str), prod_id (int), category (str), price (float).
-#         Jedes Produkt gehört in eine der folgenden Kategorien: food, drinks, others
-#         Überprüfe schon beim Erstellen eines neuen Objekts, ob die Kategorie richtig gesetzt ist. 
-#         Falls eine falsche Eingabe bei der Objekterstellung gemacht wurde, wähle stets die Kategorie others.
-
-
-#     Implementiere eine Methode apply_discount, die den Parameter discount (float) hat und eine Prozentzahl entgegennimmt.
-#         Teste in der Methode, ob discount zwischen 0 und 100 ist und wende den discount auf den Preis des Produkts an.
-#         Sollte ein fehlerhafter discount eingegeben worden sein, printe eine Warnung und berechne einen 5%-Rabatt.
-
-
-
+# Aufgabe 3: Erstellen der Produktklasse
 
 class Product:
     """Class to edit products"""
@@ -88,7 +93,7 @@ class Product:
             
 
 if __name__ == "__main__":
-    # Testing the class
+    # Testen der Klasse
     my_market = Supermarket("Denn's", "Schanzenstraße 119", "Hamburg")
     print(my_market.street)
     print()
@@ -104,5 +109,3 @@ if __name__ == "__main__":
     print()
     apple.apply_discount(101)
     #print(apple_discount)
-    
-    

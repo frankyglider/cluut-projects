@@ -4,13 +4,15 @@ from collections import Counter
 from supermarket import *
 
 
+# Aufgabe 4: Mitarbeiter und Produkte aus altem System einlesen
+
 with open("employees.csv", "r") as fh:
     df_employees = pd.read_csv(fh, sep = ";")
     #print(df_employees)
 #print(type(df_employees))
 print()
 
-# Creating list of tuples with informations about employees
+# Erstellen einer Liste von Tupeln mit Informationen über Mitarbeiter
 df_employees.rename(columns = {'JOB_ID':'Job_id'}, inplace = True)
 #print(df_employees)
 
@@ -20,7 +22,7 @@ df_employees = df_employees[["Name", "Age", "Pers_id", "Job_id"]]
 employees = list(df_employees.itertuples(name = None, index = False))
 print(employees)
 
-# Creating list of tuples with information about products
+# Erstellen einer Liste von Tupeln mit Informationen über Produkte
 with open("products.csv", "r") as fh:
     df_products = pd.read_csv(fh, sep = ";")
     #print(df_products)
@@ -34,18 +36,7 @@ products = list(df_products.itertuples(name = None, index = False))
 #print(products)
 
 
-
 # Aufgabe 5: Supermarkt mit Mitarbeitern und Produkten erstellen
-# 
-#     Erstelle einen Supermarkt my_supermarket mit den Werten "Supermarkt Deluxe", "Marienplatz 1", "München".
-# 
-# 
-#     Nimm deine employees und products und erstelle aus jedem Tupel ein Objekt.
-#         Für Elemente der employees Liste erstellst du Employee-Objekte und speicherst diese dann gesammelt in deinem Supermarkt.
-#         Für Elemente der products Liste erstellst du Products-Objekte und speichers diese dann gesammelt in deinem Supermarkt.
-# 
-# 
-#     Dein Supermarkt soll am Schluss alle Attribute gesetzt haben - keine leeren Listen mehr!
 
 my_supermarket = Supermarket("supermarkt deluxe", "marienplatz 1", "münchen")
 print(my_supermarket.name)
@@ -57,17 +48,6 @@ my_supermarket.products = [Product(*item) for item in products]
 
 
 # Aufgabe 6: Supermarkt Management
-# 
-#     Verschaffe dir einen Überblick über deinen Supermarkt und beantworte die folgenden Fragen.
-#     P.S.: Wir lieben aussagekräftige Antwortsätze - f-String!! ;)
-#     Überlege dir für welche der Anfragen es ggf. Sinn macht in Zukunft eine neue Methode in einer der Klassen zu implementieren.
-# 
-# 
-#     Wie viele Mitarbeiter hast du aktuell?
-#     Was ist das teuerste Produkt in deinem Supermarkt?
-#     Wie viel kostet ein Produkt im Durchschnitt in deinem Supermarkt?
-#     Wie viele Produkte hast du für jede Kategorie?
-#     Wie heißt der älteste Mitarbeiter?
 
 # Anzahl der Mitarbeiter
 
@@ -89,13 +69,14 @@ most_exp = most_exp[0]
 
 print(f'The most expensive Product is: {most_exp[0]}. The price is: {most_exp[1]}.')
 print()
+
 # Durchschnittspreis der Produkte
 
 average_price = statistics.mean([prod.price for prod in my_supermarket.products])
 print(f'The average price of all listed products in our supermarket is: {average_price:.2f}€.')
 print()
 
-# Anzahl der Producte pro Kategorie
+# Anzahl der Produkte pro Kategorie
 
 category_list = [prod.category for prod in my_supermarket.products]
 

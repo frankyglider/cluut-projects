@@ -3,25 +3,30 @@ from log_pdf import PDF
 import seaborn as sns
 
 
-# Aufgabe 0: Log Analyse und Apache verstehen
+# Log-Analyse und Apache verstehen
 
-    # Unter dem Begriff Logging verstehen wir die Aufzeichnung von Fehlern und Ereignissen von Software.
-    # Jede Software, die du benutzt, hat eine Logging-Systematik implementiert, die dir bei der Fehlersuche hilft, wenn etwas mal nicht funktioniert.
-    # Fehlermeldungen und Ereignisse werden meistens in eine oder mehrere Dateien geschrieben, sogenannte Log Files.
-    # In der folgenden Aufgabe werden wir uns genau so ein Log File anschauen und es analysieren.
-    # Bevor wir loslegen, starte eine kurze Recherche und beantworte folgende Fragen:
-    # Was ist ein Apache HTTP Server?
-    # Welches Format haben Apache Access Logs?
-    # Welche Informationen sind in einer Access Log Zeile enthalten?
-    # Tip 1: https://en.wikipedia.org/wiki/Apache_HTTP_Server#Feature_overview
-    # Tip 2: https://httpd.apache.org/docs/2.2/logs.html#common%20
-    # Tip 3: https://www.sumologic.com/blog/apache-access-log/
+# In dieser Aufgabe geht es um das Verständnis von Log-Dateien und die Bedeutung des Apache HTTP Servers. Log-Dateien zeichnen Fehler und Ereignisse von Software auf. Der Apache HTTP Server ist eine weit verbreitete Webserver-Software. Access Logs des Apache-Servers enthalten Informationen über jede Serveranfrage, einschließlich IP-Adresse, Anfragedatum, Typ der Anfrage, HTTP-Statuscode und mehr.
 
 # Aufgabe 1: Apache Logs analysieren
+# Die Aufgabe beginnt mit dem Herunterladen und Speichern von Apache-Log-Dateien. Diese Logs werden in einem Python-Skript namens "log_analysis.py" geöffnet und gelesen. In jeder Log-Zeile werden Informationen wie die IP-Adresse des Clients, Datum der Anfrage, Anfragetyp, HTTP-Statuscode und mehr festgehalten.
 
-    # Lade die zip-Datei herunter und speichere alle enthaltenen Files in einem Cloud9 Folder für dieses Projekt.
-    # Öffne die Datei apache_logs in einem Python Skript namens log_analysis.py und lese alle Zeilen in eine Liste ein.
-    # Schau dir die erste Zeile der Datei an und schreibe in einem Kommentar auf, welche Informationen wir in jeder Log Zeile haben.
+# Aufgabe 2: HTTP-Statuscode des ersten Log-Eintrags
+# Die erste Zeile des Log-Files wird in eine separate Variable gespeichert, analysiert und der HTTP-Statuscode wird extrahiert. Dieser Statuscode gibt an, ob die Anfrage erfolgreich war (z.B. Statuscode 200 für "OK") oder auf einen Fehler hinweist.
+
+# Aufgabe 3: HTTP-Statuscode-Analyse
+# Alle Log-Zeilen werden analysiert, und die Häufigkeit verschiedener HTTP-Statuscodes wird ermittelt. Insbesondere wird gezählt, wie oft der Statuscode 200 (erfolgreiche Anfrage) und der Statuscode 404 (Ressource nicht gefunden) vorkommen. Die collections.Counter-Klasse wird für diese Aufgabe verwendet.
+
+# Aufgabe 4: Fehlerbehebung auf dem HTTP Server
+# Um die Webanwendung zu verbessern, werden alle Log-Zeilen nach dem Statuscode 404 (Fehler) gefiltert, und die Anfragen mit diesem Statuscode werden in einer separaten Liste gespeichert. Zusätzlich werden die angeforderten URL-Pfade extrahiert und analysiert. Es wird ermittelt, wie viele verschiedene Fehlerquellen es gibt und welche die häufigsten sind.
+
+# Bonus-Aufgabe: Log-Report
+# In dieser Bonus-Aufgabe wird ein Log-Report erstellt. Dazu werden Histogramme für die Statuscodes und angeforderten URL-Pfade erstellt und in einer PDF-Datei gespeichert. Die fpdf-Bibliothek wird verwendet, um den Report zu erstellen.
+
+# Der Log-Report enthält zwei Abbildungen: ein Histogramm für die Statuscodes und ein Histogramm für die angeforderten URL-Pfade. Schließlich wird ein PDF-Report generiert.
+# Ziel: Analyse und Berichterstattung über Apache-Log-Daten, um Fehlerquellen und Statuscodes zu verstehen und zu visualisieren.
+
+
+# Aufgabe 1: Apache Logs analysieren
 
 log_list = []
 with open("apache_logs", "r") as file:
@@ -34,30 +39,14 @@ with open("apache_logs", "r") as file:
 
 
 # Aufgabe 2: HTTP Status Code des ersten Log Eintrags
-
-    # Speichere die erste Zeile des Log Files in eine separate Variable first_line.
-    # Splitte die Zeile in ihre Einzelteile mit dem split()-Befehl.
-    # Extrahiere nun den HTTP Status Code.
-    # Welcher Status Code wurde für diese Anfrage an den HTTP Server zurückgegeben?
-    # Was bedeutet der HTTP Status Code?
-    
-    
     
 first_line = log_list[0]
 splitted = first_line.split()
 print(f'Bei dem ersten Eintrag des Logfile wurde der Statuscode: {splitted[8]} zurückgegeben. Er bedeutet, dass die Anfrage erfolgreich war.')
 print()
 
-# Aufgabe 3: HTTP Status Code Analyse
 
-    # Analysiere nun alle Log Zeilen und speichere alle HTTP Status Codes in einer Liste mit dem Namen status_codes.
-    # Zähle, wie oft der Status Code 200 vorkommt und speichere den Wert in status_200.
-    # Zähle, wie oft der Status Code 404 vorkommt und speichere den Wert in status_404.
-    # Importiere nun die Klasse Counter aus dem Modul collections.
-    # https://docs.python.org/3/library/collections.html#collections.Counter
-    # Benutze die Counter Klasse, um für jeden Status Code in status_codes die Anzahl an Vorkommen zu bestimmen.
-    # Welche sind die 3 häufigsten HTTP Status Codes?
-    
+# Aufgabe 3: HTTP Status Code Analyse
     
 status_codes = []
 
@@ -80,17 +69,8 @@ counted_codes_first_three = counted_codes.most_common(3)
 print(f'Die drei häufigsten Statuscodes sind: {counted_codes_first_three[0][0]} mit einer Anzahl von {counted_codes_first_three[0][1]}, {counted_codes_first_three[1][0]} mit einer Anzahl von {counted_codes_first_three[1][1]} und {counted_codes_first_three[2][0]} mit einer Anzahl von {counted_codes_first_three[2][1]}.')
 print()
 
-# Aufgabe 4: Fehlerbehebung auf dem HTTP Server
 
-    # Um deine Webapplikation für Benutzer zu verbessern, musst du herausfinden, welche Anfragen nicht funktioniert haben.
-    # Filtere deshalb die Log Zeilen nach dem Status Code 404 und speichere alle Zeilen, die diesen Status Code beinhalten, in der Liste lines_with_404.
-    # Benutze für das filtern die filter()-Funktion und lambda.
-    # Speichere in einer neuen Liste namens resource_list die angefragten URL Paths (resource requested).
-    # Benutze hier wieder die split()-Methode.
-    # Tip: https://www.sumologic.com/blog/apache-access-log/
-    # Wieviele verschiedene Fehlerquellen hast du gefunden?
-    # Welche sind die 3 häufigsten Fehlerquellen bei den Anfragen auf unseren Apache Server?
-    # Tip: https://docs.python.org/3/library/collections.html#collections.Counter
+# Aufgabe 4: Fehlerbehebung auf dem HTTP Server
     
 lines_with_404 = list(filter(lambda x: x.split()[8] == "404", log_list))
 print(len(lines_with_404))
@@ -115,26 +95,8 @@ print(most_three)
 print()
 print(f'Die drei häufigsten Fehlerquellen sind: {most_three[0][0]} mit einer Anzahl von {most_three[0][1]}, {most_three[1][0]} mit einer Anzahl von {most_three[1][1]} und {most_three[2][0]} mit einer Anzahl von {most_three[2][1]}.')
 
+
 # Bonus Aufgabe: Log Report
-
-    # Ziel der Aufgabe ist es einen Log Report zu erstellen, der zwei Abbildungen beinhaltet.
-    # Installiere hierfür das Python Modul fpdf mit pip: https://pypi.org/project/fpdf/
-    # Das Skript log_pdf.py aus dem LMS beinhaltet eine Klasse PDF, mit der du deinen Log Report erstellen kannst.
-    # Importiere die Klasse PDF aus dem Modul log_pdf in dein Skript.
-    # Erstelle ein Histogram mit seaborn für deine Liste status_codes und speichere den Plot in der Datei status_codes.png.
-    # Erstelle ein Histogram mit seaborn für deine Liste resource_list und speichere den Plot in der Datei resource_list.png.
-    # Erstelle eine Liste plots, die zwei Strings enthält: status_codes.png, resource_list.png
-    # Erstelle eine Instanz der Klasse PDF mit dem Namen log_report.
-    # Erstelle nun eine for-Schleife über die Elemente plot in deiner Liste plots und rufe in der for-Schleife den folgenden Befehl auf:
-
-    # log_report.print_page(plot)
-
-    # Um den PDF Report nun zu erstellen, füge die folgende Zeile in deinen Code: 
-
-    # log_report.output("LogReport.pdf", "F") 
-
-    # Schaue dir den PDF Report an. Was könnte noch verbessert werden?
-
 
 sns.set_theme()
 sns.set_context("paper", rc={"font.size": 4, "axes.titlesize": 10})

@@ -1,18 +1,25 @@
 import requests
 
 
-# Aufgabe 6: Clean-Up: Erstelle ein Modul
+# Aufgabe 6: Clean-Up und Modulerstellung
 
-    # Erstelle ein neues Modul (also eine neue Datei) mit dem Namen word_module.py.
-    # Kopiere alle bisher erstellten Funktionen (synonyme_words, rhyme_words und antonym_words) in diese Datei.
-    # Erstelle in diesem Modul einen if __name__ == "__main__" block und teste deine Funktionen similar_words, rhyme_words und antonym_words in word_module.py.
-    # Schaue dir hierfür zunächst die offizielle Python Dokumentation an: https://docs.python.org/3/library/__main__.html
-    # Zusätzliche Hilfestellung findest du in diesem Beispiel: https://www.learnpython.dev/02-introduction-to-python/190-apis/final-exercise/
-    # Importiere mit der import Funktion dann alle Funktionen aus dem word_module Modul in dein ursprüngliches Pythonskript (z.B. data_muse.py) und teste auch hier nochmal die Funktionen similar_words, rhyme_words und antonym_words (aber dieses mal eben jene aus dem Modul word_module.py).
+# Ziel:
+# In dieser Aufgabe wird ein Python-Modul erstellt, um die Funktionalität eines bestehenden Skripts zu organisieren. Dies fördert die Wiederverwendbarkeit und die klare Trennung von Aufgaben. Anschließend werden die Funktionen aus dem Modul in das ursprüngliche Python-Skript importiert und getestet.
 
+# Schritte:
 
-    # Wird der Code aus dem if __name__ == "__main__" Block in data_muse.py auch ausgeführt?
-    # Wofür kannst du den if __name__ == "__main__" Block benutzen?
+#     Erstellen eines Moduls: Ein neues Modul, mit dem Namen "word_module.py", wird erstellt. Dieses Modul wird verwendet, um die bisher erstellten Funktionen zu organisieren. Diese Funktionen sind: synonyme_words, rhyme_words und antonym_words.
+
+#     Modultest: Im "word_module.py" wird ein if __name__ == "__main__"-Block erstellt. Innerhalb dieses Blocks werden die Funktionen similar_words, rhyme_words und antonym_words getestet. Dies ermöglicht es, die Funktionalität des Moduls eigenständig zu überprüfen.
+
+#     Importieren des Moduls: Das ursprüngliche Python-Skript (z.B. "data_muse.py") importiert nun das Modul "word_module.py". Dies erfolgt mit der import-Anweisung.
+
+#     Erneuter Test im Hauptskript: Die importierten Funktionen (similar_words, rhyme_words, antonym_words) aus "word_module.py" werden auch im ursprünglichen Skript getestet, um sicherzustellen, dass sie ordnungsgemäß funktionieren.
+
+#     if name == "main" Block:
+#         Der Code innerhalb des if __name__ == "__main__"-Blocks in "data_muse.py" wird ebenfalls ausgeführt. Dies ist besonders nützlich, wenn das Skript sowohl eigenständig ausgeführt werden kann (z.B. für Tests) als auch als Modul in anderen Skripten verwendet wird.
+#         Dieser Block ermöglicht es, unterschiedliche Aktionen auszuführen, basierend darauf, ob das Skript als Hauptprogramm oder als Modul in ein anderes Skript importiert wird.
+
 
 def synonym_words(word, num_results):
     
